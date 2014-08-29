@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html ng-app="MyApp">
+<head>
+  <title>Angular FizzBuzz</title>
+</head>
+<body ng-controller="MainController as mainCtrl">
+  <input type="text" ng-model="limit">
+  <div ng-bind="mainCtrl.fizzBuzzUpTo(limit)"></div>
+</body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+<script type="text/javascript">
+  var app = angular.module('MyApp', []);
+
+  app.controller('MainController', ['FizzBuzz', function(FizzBuzz) {
+    this.fizzBuzzUpTo = FizzBuzz;
+  }])
+
+  app.factory('FizzBuzz', function(){
+    var convert = function(n) {
+      if(n % 15 === 0) {
+        return 'FizzBuzz';
+      } else if (n % 3 === 0) {
+        return 'Fizz';
+      } else if (n % 5 === 0) {
+        return 'Buzz';
+      } else {
+        return n;
+      }
+    };
+
+    return function(limit) {
+      var result = [];
+      for(var i =1; i <= limit; i++){ result.push(convert(i)); }
+      return result.join(', ');
+    }
+  });
+</script>
+</html>
